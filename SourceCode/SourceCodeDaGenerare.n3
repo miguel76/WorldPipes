@@ -1,0 +1,140 @@
+*** Output ***
+
+swi:OutputDataset
+  a df:InlineDataset ;
+  df:input #_INPUT_DI_OUTPUT_  ;
+  df:uiData
+    [ df:positionX "_X_" ;
+      df:positionY "_Y_" ] ]  .
+  df:namedInput [
+    a df:NamedGraph ;
+    df:input #_INPUT_DI_OUTPUT_1_  ;
+    df:id _URI_OUTPUT_1_ ;
+    df:name "_NOME_OUTPUT_1_" ;
+    df:uiData
+      [ df:positionX "_X_" ;
+        df:positionY "_Y_" ] ]  ;
+  df:namedInput [
+    a df:NamedGraph ;
+    df:input #_INPUT_DI_OUTPUT_2_  ;
+    df:id _URI_OUTPUT_2_ ;
+    df:name "_NOME_OUTPUT_2_" ;
+    df:uiData
+      [ df:positionX "_X_" ;
+        df:positionY "_Y_" ] ]  .
+
+
+
+*** Input ***
+
+#defaultInput
+  a df:SelectGraph ;
+  df:uiData
+    [ df:positionX "_X_" ;
+      df:positionY "_Y_" ] ;
+  df:input swi:InputDataset .
+
+#_ID_INPUT_1_
+  a df:SelectGraph ;
+  df:name "_NOME_INPUT_1_" ;
+  df:uiData
+    [ df:positionX "_X_" ;
+      df:positionY "_Y_" ] ;
+  df:id #_URI_INPUT_1_ ;
+  df:input swi:InputDataset .
+
+
+*** ConstructGraph ***
+
+INPUT_ID1 : BOTH
+INPUT_ID2 : FROM NAMED
+INPUT_ID3 : FROM
+
+#<ID>
+  a df:ConstructGraph ;
+  df:name "<NAME>" ;
+  df:uiData
+    [ df:positionX "<X>" ;
+      df:positionY "<Y>" ] ;
+  df:input
+    [ a df:InlineDataset ;
+      df:input #<INPUT_ID1>  ;
+      df:input #<INPUT_ID3>  ;
+      df:namedInput [ a df:NamedGraph ; df:input #<INPUT_ID1>  ; df:id #<INPUT_ID1>  ]  ;
+      df:namedInput [ a df:NamedGraph ; df:input #<INPUT_ID2>  ; df:id #<INPUT_ID2>  ] ] ;
+  df:configTxt "<QUERY>".
+
+
+
+*** UpdatableGraph ***
+
+#<ID>
+  a df:UpdatableGraph ;
+  df:name "<NAME>" ;
+  df:uiData
+    [ df:positionX "<X>" ;
+      df:positionY "<Y>" ] ;
+  df:input
+    [ a df:InlineDataset ;
+      df:input #<INPUT_ID1>  ;
+      df:input #<INPUT_ID3>  ;
+      df:namedInput [ a df:NamedGraph ; df:input #<INPUT_ID1>  ; df:id #<INPUT_ID1>  ]  ;
+      df:namedInput [ a df:NamedGraph ; df:input #<INPUT_ID2>  ; df:id #<INPUT_ID2>  ] ] ;
+  df:configTxt "<QUERY>".
+
+
+*** DataflowDataset (SubPipeline) ***
+
+#_ID_
+  a df:DataflowDataset ;
+  df:name "<NAME>" ;
+  df:uiData
+    [ df:positionX "_X_" ;
+      df:positionY "_Y_" ] ;
+  df:input
+    [ a df:InlineDataset ;
+      df:input #_ID_INPUT_1_  ;
+      df:namedInput [ a df:NamedGraph ; df:input #_ID_INPUT_2_  ; df:id _URI_CORRISPONDENTE_2_  ]  ;
+      df:namedInput [ a df:NamedGraph ; df:input #_ID_INPUT_3_  ; df:id _URI_CORRISPONDENTE_3_  ] ] ;
+  df:configTxt "<QUERY>".
+
+
+#_ID_OUTPUT_1_
+  a df:SelectGraph ;
+  df:id _URI_CORRISPONDENTE_1_
+  df:input #_ID_ (lo stesso di sopra, l'ID della pipeline) .
+
+#_ID_OUTPUT_2_
+  a df:SelectGraph ;
+  df:input #_ID_ .
+
+#_ID_OUTPUT_3_
+  a df:SelectGraph ;
+  df:id _URI_CORRISPONDENTE_3_
+  df:input #_ID_ .
+
+
+
+*** UnionGraph ***
+
+#<ID>
+  a df:UnionGraph ;
+  df:name "<NAME>" ;
+  df:uiData
+    [ df:positionX "<X>" ;
+      df:positionY "<Y>" ] ;
+  df:input #<INPUT_ID1>  ;
+  df:input #<INPUT_ID2>  .
+
+
+*** Dataset ***
+
+<_URI_>
+  a df:IncludedGraph ;
+  df:uiData
+    [ df:positionX "<X>" ;
+      df:positionY "<Y>" ] ;
+  df:url <_URI_> ;
+  df:name "_NAME_" .
+
+

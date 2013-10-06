@@ -1,0 +1,57 @@
+body{
+	color:black;
+	font-family:serif;
+	font-size:16px;
+	background-color:trasparent;
+	background-position:100% 100%;
+	overflow:auto;
+	z-index:0;
+}
+
+.contenitore{
+	border-collapse:separate;
+	border-spacing:10px;
+	text-align:center;
+}
+
+.tablestyle{
+	border: 1px solid #666666;
+	border-collapse:collapse;
+	background:#FDEEF4;
+	text-align:center;
+}
+
+#author{
+	table-layout:fixed;
+	width:300px;
+}
+
+#bookmovie{
+	table-layout:fixed;
+	width:550px;
+}
+
+th{
+	border: 1px solid #666666;
+	border-collapse:collapse;
+	padding:3px;
+}
+
+tbody{
+	cursor:pointer;
+}
+
+a:link{
+	text-decoration:none; 
+	color:black;
+}
+
+/*a:visited{text-decoration: none; color: green;}
+
+a:hover{font-family:cursive;}*/
+
+iframe{
+	height:70%;
+	width:100%;
+	overflow:auto;
+}

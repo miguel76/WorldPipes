@@ -1,0 +1,43 @@
+<!-- Applicazione WORLD PIPES -->
+
+<html>
+	<head>
+		<title>JsonToServer Test</title>
+		<script type="text/javascript" src="JS/JsonToServer.js"></script>	
+		
+		<!-- Controllo del Browser utente -->
+		<script type="text/javascript">
+			<!--[if IE]>
+			if ((navigator.userAgent.indexOf("Microsoft")!=-1) ||(navigator.userAgent.indexOf("Windows")!=-1)) {
+					alert("Il programma non è supportato da Interner Explorer!")
+					window.close();
+					window.open("http://www.google.it");
+			}
+			<![endif]-->
+
+var URIGraphStore = "http://localhost/ds/data?graph=";
+var URIUpdate = "http://localhost/ds/update";
+var GraphURIPrefix = "http://www.swows.org/Default/";
+var dataflowURI = GraphURIPrefix + "dataflow";
+var pipelineURI = GraphURIPrefix + "pipeline";
+var layoutURI = GraphURIPrefix + "pipeline/layout";
+var pubDataflowURI = GraphURIPrefix + "dataflow/public";
+ 
+                  function save() {
+                    alert(document.getElementById("text").value);
+                    jsonObject = JSON.parse(document.getElementById("text").value);
+                    alert(jsonObject);
+                    JsonToServer.savePipelineAndLayout(URIGraphStore, pipelineURI, layoutURI, jsonObject );
+                  }
+
+		</script>
+	
+	
+	</head>
+	<body>
+		<form id="testForm">
+			<textarea id="text">[]</textarea>
+			<input type="button" onclick="save()" />
+		</form>
+	</body>
+</html>

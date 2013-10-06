@@ -1,0 +1,139 @@
+<!-- Applicazione WORLD PIPES -->
+
+<html>
+	<head>
+		<title> World pipes </title>
+		<link type="text/css" rel="stylesheet" href="CSS/pagestyle.css"/>
+		<link type="text/css" rel="stylesheet" href="CSS/actionListenerStyle.css"/>
+		<link type="text/css" rel="stylesheet" href="CSS/drag&dropstyle.css"/>
+		<link type="text/css" rel="stylesheet" href="CSS/tablestyle.css"/>
+
+		<script type="text/javascript" src="JS/jquery.min.js"></script>
+		<script type="text/javascript" src="JS/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="JS/jquery.jsPlumb-1.5.2.js"></script>
+		<script type="text/javascript" src="JS/jsonld.js"></script>	
+		<script type="text/javascript" src="JS/core.js"></script>	
+		<script type="text/javascript" src="JS/Sourcecode.js"></script>	
+		<script type="text/javascript" src="JS/Component.js"></script>	
+		<script type="text/javascript" src="JS/InputType.js"></script>	
+		<script type="text/javascript" src="JS/Form.js"></script>
+		<script type="text/javascript" src="JS/Endpoint.js"></script>
+		<script type="text/javascript" src="JS/JsonToServer.js"></script>
+		<script type="text/javascript" src="JS/activelink.js"></script>
+		
+		<!-- Controllo del Browser utente -->
+		<script type="text/javascript">
+			<!--[if IE]>
+			if ((navigator.userAgent.indexOf("Microsoft")!=-1) ||(navigator.userAgent.indexOf("Windows")!=-1)) {
+					alert("Il programma non è supportato da Interner Explorer!")
+					window.close();
+					window.open("http://www.google.it");
+			}
+			<![endif]-->
+		</script>
+	
+		<script type="text/javascript" src="JS/areahelp.js"></script>
+		<script type="text/javascript" src="JS/actionListenerResizeX.js"></script>
+		<script type="text/javascript" src="JS/actionListenerResizeY.js"></script>
+		<script type="text/javascript" src="JS/actionListenerImg.js"></script>
+		
+		<script type="text/javascript" src="JS/jquery.rdfquery.core-1.0.js"></script>
+		<script type="text/javascript" src="JS/jquery.rdfquery.rdfa-1.0.js"></script>
+		<script type="text/javascript" src="JS/jquery.rdfquery.rules-1.0.js"></script>
+	
+	</head>
+	<body>		
+		<!-- Barra immagine -->
+		<div class="barraimg"> World pipes </div>
+		<!-- Barra pulsanti -->
+		<div class="barrapulsanti">
+			<div id="pulsante">
+				<ul title="pulsanti">
+					<li><img class="pulsanti" src="IMG/new.gif" title="New" draggable="false"/></li>
+					<li><img class="pulsanti" src="IMG/salva.gif" title="Save" draggable="false"/></li>
+					<li><img class="pulsanti" src="IMG/Proprietà.gif" title="Properties" draggable="false"/></li>
+					<li><img class="pulsanti" src="IMG/play.gif" title="Play & Save" draggable="false"/></li>
+					<li><img class="pulsanti" src="IMG/reload.gif" title="load" draggable="false"/></li>
+					<li><img class="pulsanti" src="IMG/publish.gif" title="publish" draggable="false"/></li>
+				</ul>
+			</div>
+		</div>
+		
+		<!-- Barra Tools -->
+		<div class="barratools">
+			<div class="componenti">
+				<div id="tabscomp">
+					<ul title="componenti">
+						<li id="activelinkcomp"><a href="#tab0"> Components </a></li>
+					</ul>
+				</div>
+				<div id="grafici">
+					<ul title="componentImg">
+						<li><img class="graph" id="grafo" src="IMG/Input.gif" title="input graph"/></br>input</li>
+						<li><img class="graph" id="grafo" src="IMG/Output.gif" title="output graph"/></br>output</li>
+						<li><img class="graph" id="grafo" src="IMG/Construct.gif" title="construct graph"/></br>construct</li>
+						<li><img class="graph" id="grafo" src="IMG/Union.gif" title="union graph"/></br>union</li>
+						<li><img class="graph" id="grafo" src="IMG/Updatable.gif" title="updatable graph"/></br>updatable</li>
+					</ul>
+				</div>
+			</div>
+			<div class="datapipe">
+				<div id="tabs">
+					<ul title="tabs">
+						<li title="lidataset" class="activelink"><a href="#dataset" name="dataset"> Data Sources </a></li>
+						<li title="lipipeline"><a href="#pipes" name="pipes"> Pipeline </a></li>		
+					</ul>
+				</div>
+				<div name="contentdataset" class="content" id="dataset">		
+					<div id="grafici">
+						<ul title="new data source">
+							<li><img class="graph" id="grafo" src="IMG/Dataset.gif" title="new dataset"/><br/>new dataset</li>
+						</ul>
+					</div>
+				</div>
+				<div name="contentpipeline" class="content hide" id="pipes">
+					<div id="grafici">
+						<ul title="pipesImg">
+							<li><img class="graph" id="grafo" src="IMG/pipes.gif" title="pipes"/><br/>pipe</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+			
+		<!-- ORIZONTAL RESIZE -->
+		<div class="orizontalresize">
+			<div id="orizontalbotton"></div>
+		</div>
+		
+		<!-- VERTICAL RESIZE -->
+		<div class="verticalresize">
+			<div id="verticalbotton"></div>
+		</div>
+					
+		<!-- Area Editor -->
+		<div class="areaeditor">
+			<div id="edit">
+				<div class="dropareainvite">
+					<div class="droptext">drag modules here</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Area helper -->
+		<div class="areahelper" title="Helper Area"> 
+			<p id="paragrafo"></p>
+		</div>
+		
+		<!-- Source code -->
+		<div class="sourcecode" title="Source code Area">
+			<p class="codeclass">
+				@prefix df: &lt;http://www.swows.org/dataflow#&gt; . </br>
+				@prefix swi: &lt;http://www.swows.org/instance#&gt; . </br>
+				@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; . </br></br>
+			</p>
+		</div>
+		
+	</body>
+</html>

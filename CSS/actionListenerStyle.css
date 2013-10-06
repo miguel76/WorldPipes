@@ -1,0 +1,130 @@
+/*Quando si passa il mouse sopra l'immagine di un grafico o di uno dei pulsanti sulla barra dei pulsanti si attivano queste due classi*/
+.zoomGrafici{
+	width:65px;
+	cursor:pointer;
+	z-index:1;
+}
+
+.zoomPulsanti{
+	width:23px;
+	cursor:pointer;
+	z-index:1;
+}
+
+.zoomActiveGraph{
+	width:40px;
+	cursor:pointer;
+	z-index:2;
+}
+
+/*Layout per collassare verticalmente*/
+.verticalresize{
+	position:absolute;
+	top:80px;
+	left:208px;
+	bottom:5px;
+	border:1px solid #FFFFFF;
+	width:4px;
+	background-color:#FFFFFF;
+	cursor:pointer;
+	z-index:0;
+}
+
+#verticalbotton{
+	position:absolute;
+	border:1px solid #333333;
+	top:209;
+	width:2px;
+	height:55px;
+	background-color:#333333;
+	cursor:pointer;
+	z-index:1;
+}
+
+.verticalanimationresize{
+	position:absolute;
+	top:80px;
+	left:208px;
+	bottom:5px;
+	border:1px solid #89A;
+	width:4px;
+	background-color:#89A;
+	cursor:pointer;
+	z-index:3;
+}
+
+.collapsedresizeX{
+	position:absolute;
+	left:0px;
+}
+
+.collapsedX{
+	position:absolute;
+	display:none;
+	left:-10000px;
+}
+
+.expandeditorX{
+	position:absolute;
+	left:10px;
+}
+
+/*Layout per collassare orizzontalmente*/
+
+.orizontalresize{
+	position:absolute;
+	top:533px;
+	left:5px;
+	right:5px;
+	bottom:auto;
+	border:1px solid #FFFFFF;
+	height:4px;
+	background-color:#FFFFFF;
+	cursor:pointer;
+	z-index:0;
+}
+
+#orizontalbotton{
+	position:absolute;
+	border:1px solid #333333;
+	left:650;
+	width:55px;
+	height:2px;
+	background-color:#333333;
+	cursor:pointer;
+	z-index:1;
+}
+
+.orizontalanimationresize{
+	position:absolute;
+	top:533px;
+	left:5px;
+	right:5px;
+	bottom:auto;
+	border:1px solid #89A;
+	height:4px;
+	background-color:#89A;
+	cursor:pointer;
+	z-index:3;
+}
+
+.collapsedresizeY{
+	position:absolute;
+	top:98.5%;
+}
+
+.collapsedY{
+	position:relative;
+	display:none;
+	bottom:-10000px;
+}
+
+.expandbarraY{
+	position:absolute;
+	height:84.5%;
+}
+
+.expandeditorY{
+	position:absolute;
+	height:84.5%;
+}

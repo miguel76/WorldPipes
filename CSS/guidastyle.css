@@ -1,0 +1,58 @@
+body{
+	font-size: 20px;
+	font-style: normal;
+	text-align: justify;
+	color:black;
+	display:block;
+	z-index:1;
+}
+
+h1{
+	top:15px;
+	font-size:40px;
+	font-weight:bold;
+	text-align:center;
+}
+
+#picture{
+	text-align:center;
+}
+
+img{
+	border:1px solid #FF6600;
+	width:60%;
+}
+
+#img{
+	border:1px solid #FF6600;
+	width:40%;
+}
+
+#graph{
+	border:1px solid #FF6600;
+	width:20%;
+}
+
+#didascalia{
+	font-weight:bold;
+	color:#FF6600;
+	font-size:11px;
+}
+
+#indice{
+	position:relative;
+	text-align:left;
+}
+
+a, a:visited {
+	color: #FF6600;
+	/*text-decoration: none;*/
+}
+
+#list{
+	list-style:none;
+}
+
+r{color:red;}
+
+ind{padding-left:1.5em;}
