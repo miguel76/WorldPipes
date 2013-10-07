@@ -1,54 +1,26 @@
-/*Ogni componente trascianto nella'erea editor è contenuto nel vettore dei Componenti.
-Tale vettore è un array di classi.
-In questo script si gestiscono tutti i metodi get e set per poter lavorare sul vettore dei Componenti*/
-var Component = {};
-
-componentVett = []; 
-
-/*Costrutture della classe ComponentClass*/
-var ComponentClass = function(CODE,COMPONENT,ID,URI,NAME,QUERY,INPUT,X,Y){
-	this.Code = CODE;
-	this.Component = COMPONENT
-	this.ID = ID;
-	this.URI = URI;
-	this.Name = NAME;
-	this.Query = QUERY;
-	this.InputList = INPUT;
-	this.X = X;
-	this.Y = Y;
+function Component(code,type,id,uri,name,query,inputList,x,y) {
+	this.code = code;
+	this.type = type;
+	this.componentId = id;
+	this.uri = uri;
+	this.name = name;
+	this.query = query;
+	this.inputList = inputList;
+	this.x = x;
+	this.y = y;
 };
 
-/*Restituisce il codice del componente*/
-Component.getCode = function(code){
-	for(var i=0;i<componentVett.length;i++){
-		if(componentVett[i].Code == code){return componentVett[i].Code;}
-	}
-};
-
-/*Restituisce la categoria a cui il componente appartiene*/
-Component.getComponent = function(code){
-	for(var i=0;i<componentVett.length;i++){
-		if(componentVett[i].Code == code){return componentVett[i].Component;}
-	}
-};
-
-/*Restitusce l'ID del componente*/
-Component.getID = function(code){
-	for(var i=0;i<componentVett.length;i++){
-		if(componentVett[i].Code == code){
-			if(componentVett[i].ID != null){return componentVett[i].ID;}
-			else{return null;}
-		}
-	}
-};
-
-/*Restituisce l'URI del componente*/
-Component.getURI = function(code){
-	for(var i=0;i<componentVett.length;i++){
-		if(componentVett[i].Code == code){
-			if(componentVett[i].URI != null){return componentVett[i].URI;}
-		}
-	}
+Component.prototype = {
+		constructor: Component,
+		getCode: function() { return this.code; },
+		getType: function() { return this.type; },
+		getId: function() { return this.componentId; },
+		getURI: function() { return this.uri; },
+		getName: function() { return this.name; },
+		getQuery: function() { return this.query; },
+		getInputList: function() { return this.inputList; },
+		getPositionX: function() { return this.x; },
+		getPositionY: function() { return this.y; }
 };
 
 /*Restituisce il Nome del componente*/
