@@ -70,7 +70,7 @@ else if (document.attachEvent)
       else
       {
         target._currentListener = listener;
-        target._currentListener(event)
+        target._currentListener(event);
         target._currentListener = null;
       }
     };

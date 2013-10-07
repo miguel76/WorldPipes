@@ -1,8 +1,11 @@
-function Component(id,name,x,y) {
+function Component(type,id,uri,name,query,inputList,x,y) {
 //	this.code = code;
 //	this.type = type;
 	this.componentId = id;
+	this.uri = uri;
 	this.name = name;
+	this.query = query;
+	this.inputList = inputList;
 	this.x = x;
 	this.y = y;
 };
