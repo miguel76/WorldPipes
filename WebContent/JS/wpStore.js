@@ -1,142 +1,105 @@
-/*Ogni componente trascianto nella'erea editor è contenuto nel vettore dei Componenti.
-Tale vettore è un array di classi.
-In questo script si gestiscono tutti i metodi get e set per poter lavorare sul vettore dei Componenti*/
-var Component = {};
-
-componentVett = []; 
-
-/*Costrutture della classe ComponentClass*/
-//var ComponentClass =
-function Component(code,type,id,uri,name,query,input,x,y) {
-	this.code = code;
-	this.type = type;
-	this.componentId = id;
-	this.uri = uri;
-	this.name = name;
-	this.query = query;
-	this.input = input;
-	this.x = x;
-	this.y = y;
+function wpStore(remoteStoreURL,callback) {
+	this.remoteStoreURL = remoteStoreURL;
+	this.defaultGraphURL = remoteStoreURL + "data?defaultGraph";
+	this.namedGraphURLPrefix = remoteStoreURL + "data?graph=";
+	Store.create(
+			function(store) {
+				this._setPrefixes();
+				this.store = store;
+				this.loadDefaultGraphFromServer(
+						function() {
+							store.graph(
+									function(defaultGraph) {
+										wpContainer.call(this,store,defaultGraph);
+										callback(this);
+									}
+							);
+						}
+				);
+			}
+	);
+	
 };
 
-/*Restituisce il codice del componente*/
-Component.prototype.getCode = function() {
-	return this.code;
+wpStore.create = function(remoteStoreURL,callback) {
+	new wpStore(remoteStoreURL,callback);
 };
 
-/*Restituisce la categoria a cui il componente appartiene*/
-Component.prototype.getType = function() {
-	return this.type;
-};
-
-/*Restitusce l'ID del componente*/
-Component.prototype.getID = function() {
-	return this.componentId;
-};
-
-/*Restituisce l'URI del componente*/
-Component.prototype.getURI = function() {
-	return this.uri;
-};
-
-/*Restituisce il Nome del componente*/
-Component.prototype.getName = function( ) {
-	return this.name;
-};
-
-/*Restitusce la query*/
-Component.prototype.getQuery = function() {
-	return this.query;
-};
-
-/*Restitusce la posizione nell'asse X del compomente*/
-Component.prototype.getX = function() {
-	return this.x;
-};
-
-/*Restitusce la posizione nell'asse Y del compomente*/
-Component.prototype.getY = function() {
-	return this.y;
-};
-
-/*Restitusce il vettore degli input connessi al componente*/
-Component.getVett = function(code){
-	for(var i=0;i<componentVett.length;i++){
-		if(componentVett[i].Code == code){return componentVett[i].InputList;}
-	}
-};
-
-/*Cerca un elemento nel vettore dei Componenti*/
-Component.cercaElem = function(){
-		for(var i=0;i<componentVett.length;i++){
-			if(componentVett[i].ID){alert("componentVett[" + i + "]:" + componentVett[i].Code);}
-			else{alert("componentVett[" + i + "]:" + componentVett[i].Code);}
-			
+wpStore.prototype =
+	wpContainer.prototype || {
+		
+		constructor: wpStore,
+		
+		createNewPipeline: function() {
+			var newPipeline = new wpPipeline(this);
+			this._addItem(newPipeline);
+			return newPipeline;
+		},
+		
+		_anonIdPrefix: "pl_",
+		
+		_commonExtensions: {
+				'wp':'http://www.swows.org/2013/10/worldpipes#',
+				'rdf':'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
+				'xsd':'http://www.w3.org/2001/XMLSchema#'
+		},
+		_setPrefixes: function() {
+			map(
+					function(key) {
+						this.store.setPrefix(key,this._commonExtensions[key]);
+					},
+					this._commonExtensions.keys() );
+		},
+		
+		loadDefaultGraphFromServer: function(callback) {
+			this.store.load(
+					'remote',
+					this.defaultGraphURL,
+					callback
+			);
+		},
+		loadGraphFromServer: function(graphURI, callback) {
+			this.store.load(
+					'remote',
+					this.namedGraphURLPrefix + encodeURIComponent(graphURI),
+					graphURI,
+					callback
+			);
+		},
+		
+		_put: function(URL,graph) {
+			try {
+				var request = new XMLHttpRequest();
+			} catch(error) {
+				var request = null;
+			}
+		  
+			if (request == null) {
+		        alert("ERROR! Invalid Request");
+		    } else {
+		    	request.open("PUT",URL, false);
+		    	request.setRequestHeader("Content-Type","application/n-quads");
+		    	request.send(graph.toNT());
+		    	if(request.status == 200 || request.status == 201 || request.status == 204) {
+//		 	        alert("Data sent to " + graphName);
+		    	}
+		    	if(request.status == 400 ){alert("Parse error");}
+		    	if(request.status == 500 ){alert("Server error");} 
+		    	if(request.status == 503 ){alert("Service not available");}
+		    }
+		},
+		
+		sendDefaultGraphToServer: function(graph) {
+			this._put(this.defaultGraphURL, graph);
+		},
+		sendGraphToServer: function(graphURI, graph) {
+			this._put(this.namedGraphURLPrefix + encodeURIComponent(graphURI), graph);
+		},
+		
+		_sendDataToServer: function() {
+			this.sendDefaultGraphToServer(this.graph);
 		}
-};
-
-/*Aggiorna i dati di un componente*/
-Component.modifica = function(code,ID,URI,NAME,QUERY,inputVett,X,Y){
-	for(var i=0;i<componentVett.length;i++){
-		if(componentVett[i].Code == code){
-			if(componentVett[i].ID != null && componentVett[i].ID != ID){
-				componentVett[i].ID = ID;
-			}
-			if(componentVett[i].URI != null && componentVett[i].URI != URI){
-				componentVett[i].URI = URI;
-			}
-			if(componentVett[i].Name != null && componentVett[i].Name != NAME){
-				componentVett[i].Name = NAME;
-			}
-			if(componentVett[i].Query != null && componentVett[i].Query != QUERY){
-				componentVett[i].Query = QUERY;
-			}
-			if(componentVett[i].InputList != null){
-				if(componentVett[i].InputList.length != 0){
-					/*Scorre in vettore degli input di componentVett*/
-					for(var j=0;j<componentVett[i].InputList.length;j++){
-						componentVett[i].InputList[j].Code = inputVett[j].ConnectedComponentCode;
-						componentVett[i].InputList[j].Id = inputVett[j].Id;
-						componentVett[i].InputList[j].Name = inputVett[j].Name;
-						componentVett[i].InputList[j].Shape = inputVett[j].Shape;
-						componentVett[i].InputList[j].Color = inputVett[j].Color;						
-					}
-				}
-			}
-			if(componentVett[i].X != null && componentVett[i].X != X){
-				componentVett[i].X = X;
-			}
-			if(componentVett[i].Y != null && componentVett[i].Y != Y){
-				componentVett[i].Y = Y;
-			}
-		}
-	}
-};
-
-Component.impostaValori = function(code,inputVett){	
-	for(var i=0;i<componentVett.length;i++){
-		if(componentVett[i].Code == code){
-			for(var j=0;j<inputVett.length;j++){
-				if(inputVett[j].ConnectedComponentCode == code){
-						componentVett[i].ID = inputVett[j].Id;
-						componentVett[i].Name = inputVett[j].Name;
-				}
-			}
-		}
-	}
-};
-
-/*Elimina un componente dal vettore dei Componenti*/
-Component.elimina = function(componentVett,code){
-	for(var i=0;i<componentVett.length;i++){
-		if(componentVett[i].Code == code){
-			/*Cancella codice*/
-			Code.cancellaCodice(code,false);
-			/*Cancella elemento*/
-			componentVett.splice(i,1);
-			//alert("Component removed");
-		}
-	}
+		
 };
 
 /*Scrive il nome del componente nel div*/

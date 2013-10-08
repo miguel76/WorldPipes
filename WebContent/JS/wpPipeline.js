@@ -1,95 +1,33 @@
-/*Costrutture della classe Pipeline*/
-function Pipeline() {
-	this.
+function wpPipeline(store,id) {
+	wpItem.call(this, pipeline, id);
+	this.store = store;
+	this.store.graph(
+			id,
+			function(pipelineGraph) { wpContainer.call(this, store, graph); }
+	);
 };
 
-Pipeline.prototype = {
-		constructor: Pipeline,
-		getComponentByCode: function() {
-			for(var i=0;i<componentVett.length;i++){
-				if(componentVett[i].Code == code){return componentVett[i].InputList;}
-			}
-		}
-}
-
-/*Restitusce il vettore degli input connessi al componente*/
-Component.getVett = function(code){
-	for(var i=0;i<componentVett.length;i++){
-		if(componentVett[i].Code == code){return componentVett[i].InputList;}
-	}
-};
-
-/*Cerca un elemento nel vettore dei Componenti*/
-Component.cercaElem = function(){
-		for(var i=0;i<componentVett.length;i++){
-			if(componentVett[i].ID){alert("componentVett[" + i + "]:" + componentVett[i].Code);}
-			else{alert("componentVett[" + i + "]:" + componentVett[i].Code);}
+wpPipeline.prototype =
+	wpContainer.prototype || wpItem.prototype || {
+		
+		constructor: wpPipeline,
+		
+		createNewComponent: function(componentClass,x,y) {
+			var newComponent = new componentClass(this);
+			newComponent.setX(x);
+			newComponent.setY(y);
+			this._addItem(newComponent);
+			return newComponent;
+		},
+		
+		_anonIdPrefix: "comp_",
+		
+		_itemType: "wp:Component",
+		_itemClass: wpComponent,
+		_loadItem: function(id) {
 			
 		}
-};
-
-/*Aggiorna i dati di un componente*/
-Component.modifica = function(code,ID,URI,NAME,QUERY,inputVett,X,Y){
-	for(var i=0;i<componentVett.length;i++){
-		if(componentVett[i].Code == code){
-			if(componentVett[i].ID != null && componentVett[i].ID != ID){
-				componentVett[i].ID = ID;
-			}
-			if(componentVett[i].URI != null && componentVett[i].URI != URI){
-				componentVett[i].URI = URI;
-			}
-			if(componentVett[i].Name != null && componentVett[i].Name != NAME){
-				componentVett[i].Name = NAME;
-			}
-			if(componentVett[i].Query != null && componentVett[i].Query != QUERY){
-				componentVett[i].Query = QUERY;
-			}
-			if(componentVett[i].InputList != null){
-				if(componentVett[i].InputList.length != 0){
-					/*Scorre in vettore degli input di componentVett*/
-					for(var j=0;j<componentVett[i].InputList.length;j++){
-						componentVett[i].InputList[j].Code = inputVett[j].ConnectedComponentCode;
-						componentVett[i].InputList[j].Id = inputVett[j].Id;
-						componentVett[i].InputList[j].Name = inputVett[j].Name;
-						componentVett[i].InputList[j].Shape = inputVett[j].Shape;
-						componentVett[i].InputList[j].Color = inputVett[j].Color;						
-					}
-				}
-			}
-			if(componentVett[i].X != null && componentVett[i].X != X){
-				componentVett[i].X = X;
-			}
-			if(componentVett[i].Y != null && componentVett[i].Y != Y){
-				componentVett[i].Y = Y;
-			}
-		}
-	}
-};
-
-Component.impostaValori = function(code,inputVett){	
-	for(var i=0;i<componentVett.length;i++){
-		if(componentVett[i].Code == code){
-			for(var j=0;j<inputVett.length;j++){
-				if(inputVett[j].ConnectedComponentCode == code){
-						componentVett[i].ID = inputVett[j].Id;
-						componentVett[i].Name = inputVett[j].Name;
-				}
-			}
-		}
-	}
-};
-
-/*Elimina un componente dal vettore dei Componenti*/
-Component.elimina = function(componentVett,code){
-	for(var i=0;i<componentVett.length;i++){
-		if(componentVett[i].Code == code){
-			/*Cancella codice*/
-			Code.cancellaCodice(code,false);
-			/*Cancella elemento*/
-			componentVett.splice(i,1);
-			//alert("Component removed");
-		}
-	}
+		
 };
 
 /*Scrive il nome del componente nel div*/
