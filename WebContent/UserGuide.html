@@ -1,0 +1,276 @@
+<html>
+	<head>
+		<title>World Pipes - User Guide</title>
+		<link type="text/css" rel="stylesheet" href="CSS/guidastyle.css"/>
+	</head>
+	<body>
+		<h1>World Pipes User Guide</h1>
+		<p>World Pipes is the web based user interface of the <a href="http://swows.org">SWOWS system</a>.</p>
+		<p>This short guide describes how to use World Pipes to build visualizations of linked data, using its visual language.</p>
+		<p>Knowledge of the RDF data model and of the SPARQL 1.1 language is assumed.</p>
+		<div id="picture">
+			<figure>
+				<img src="GuidaD'uso/Img/WorldPipes.png" title="WorldPipes"/>
+				<figcaption>
+					<p id="didascalia">figure 1 - World pipes</p>
+				</figcaption>
+			</figure>
+		</div>
+		<div>
+			<h3>Table of contents</h3>
+			<ol>
+				<li><a href="launch">Launching the application</a></li>
+				<li><a href="#applicazione"> L'applicazione </a></li>
+				<li><a href="#ambiente"> Ambiente di sviluppo </a></li>
+				<li><a href="#connect"> Connecting Components </a></li>
+				<li><a href="#properties"> Setting Component Properties </a></li>
+				<li><a href="#types"> Types of Components</a>
+					<ol>
+						<li><a href="#input"> Input graph </a></li>
+						<li><a href="#output"> Output graph </a></li>
+						<li><a href="#dataset"> Datasource graph </a></li>
+						<li><a href="#union"> Union graph </a></li>
+						<li><a href="#construct"> Construct graph </a></li>
+						<li><a href="#updatable"> Updatable graph </a></li>
+						<li><a href="#pipeline"> Pipeline </a></li>
+					</ol>
+				</li>
+			</ol>
+		</div>
+		<div>
+			</br>
+			<h3 id="launch">Launching the application</h3>
+			<p>
+				Aprire la cartella "WORLDPIPES" e lanciare l'applicazione cliccando su <i>WorldPipesNew.html</i></br>
+				<ind><r>ATTENZIONE</r>: World Pipes non gira sul browser <i>Interner Explorer</i>.</ind>
+			</p>
+			<h3>L'applicazione</h3>
+			<p>
+				<a name="applicazione"></a>
+				La figura 1 mostra l'interfaccia web, suddivisa in quattro aree: </br>
+				<div id="picture">
+					<figure>
+						<img src="GuidaD'uso/Img/WorldPipes.gif" title="WorldPipes"/>
+						<figcaption>
+							<p id="didascalia"> figura 2 - Aree di lavoro World pipes </p>
+						</figcaption>
+					</figure>
+				</div>
+				<ul>
+					<li>
+						<b> Area componenti e Tab Dataset e Pipeline: </b>nell'area componenti si ha la lista dei componenti da utilizzare per creare le nostre pipes.</br> 
+						<ind>Nel tab dataset troviamo la lista dei dataset, quelli creati da noi e quelli di default.</br></ind>
+						<ind>Nel tab pipeline si ha l'elenco delle pipes realizzate.</ind>
+					</li>
+					<li>
+						<b> Area editor:</b>e' l'area di lavoro in cui e' possibile sviluppare i nostri dataflow.
+					</li>
+					<li>
+						<b>Area helper:</b> cliccando su un elemento, in quest'area ne compare una breve spiegazione e,</br> 
+						<ind>un link che permette di accedere al manuale d'uso per avere una spiegazione piu' approfondita sull'utilizzo del componente.</ind>
+					</li>
+					<li>
+						<b>Source code:</b> man mano che la pipeline prende forma in quest'area, compare il codice RDF corrispondente.
+					</li>
+				</ul>
+			</p>
+			<h3>Ambiente di sviluppo</h3>
+			<p>
+				<a name="ambiente"></a>
+				La figura 2 puo' aiutare l'utente a familiarizzare con le operazioni principali.
+				<div>
+					<figure>
+						<img src="GuidaD'uso/Img/WorldPipes_Operazioni.gif" title="WorldPipes"/>
+						<figcaption>
+							<p> figura 3 - Ambiente di sviluppo World pipes </p>
+						</figcaption>
+					</figure>
+				</div>
+				Breve descrizione degli elementi contrassegnati:
+				<ol>
+					<li><b>Pulsante New:</b> ricarica la pagina, cosi' da poter costruire una nuova pipeline.</li>
+					<li><b>Pulsante Save:</b> permette di salvare la pipeline creata. Sara' richiesto di inserire il <b>Base URI</b> e il <b>Local ID.</b></li>
+					<li><b>Pulsante Properties:</b> attraverso una form permette di attribuire un nome e una descrizione della pipeline.</li>
+					<li><b>Pulsante play:</b> cliccando su questo pulsante sara' possibile visualizzare l'output della pipeline.</li>
+					<li><b>Componente:</b> componente della pipeline.</li>
+					<li><b>Pulsante delete:</b> permette di eliminare un componente dalla pipeline</li>
+					<li><b>Pulsante property:</b> permette di inserire i dati riguardanti il componente, Nome, ID, URI e Query (ove richiesto).</li>
+					<li><b>Pulsante add:</b> permette di inserire altre porte d'ingresso.</li>
+					<li><b>Endpoint output:</b> ogni componente ha delle porte in uscita, poste in basso, da dove partono i collegamenti verso un altro nodo.</li>
+					<li><b>Endpoint input:</b> alcuni componenti hanno porte in entrata, poste in alto, dove sono connessi i collegamenti provenienti da un altro componente.</li>
+					<li><b>Pulsante scissors:</b> permette di recidere un collegamento.</li>
+					<li><b>Nome del componente:</b> ogni componente ha assegnato un nome di default, il nome puo' essere modificato con Properties.</li>
+				</ol>
+			</p>
+			<h3 id="connect">Connecting Components</h3>
+			<p>
+				Le parti sono collegate trascinando un collegamento dalla porta di uscita (in basso al centro) di un operatore alla porta di entrata (in alto) di un altro operatore.
+				Una pipeline si puo' ritenere completa quando tutti i nodi a lei necessari sono stati aggiunti, indispensabile per l'esecuzione e' il componente di output.
+				<div>
+					<figure>
+						<img src="GuidaD'uso/Img/Connettere.png" title="Connettere Componenti"/>
+						<figcaption>
+							<p> figura 3 - Ambiente di sviluppo World pipes </p>
+						</figcaption>
+					</figure>
+				</div>
+				Tutti gli elementi devono essere collegati almeno a un altro componente. La pipeline piu' semplice sara' composta di due nodi (ad esempio input -> output).
+			</p>
+			<h3 id="properties">Setting Component Properties</h3>
+			<p>
+				Ogni operatore ha un pulsante <i>property</i> che permette di impostarne le proprieta'.
+				<div>
+					<figure>
+						<img src="GuidaD'uso/Img/FormUpDat.gif" title="Connettere Componenti"/>
+						<figcaption>
+							<p> figura 4 - Form proprieta' Updatable graph </p>
+						</figcaption>
+					</figure>
+				</div>
+				<div>
+					<figure>
+						<img src="GuidaD'uso/Img/FormConstr.gif" title="Connettere Componenti"/>
+						<figcaption>
+							<p> figura 5 - Form proprieta' Construct graph </p>
+						</figcaption>
+					</figure>
+				</div>
+				Per i componenti Construct e Updatable, i quali accettano piu' di un input, il form delle proprieta' cambia a seconda che se hanno o no operatori collegati in entrata. </br>
+				Le figure 4 e 5 mostrano rispettivamente il form di Updatable e Construct non connessi. Le figure 6 e 7 mostrano i form degli stessi componenti ma connessi.
+				<div>
+					<figure>
+						<img src="GuidaD'uso/Img/FormUpDatConnesso.gif" title="Connettere Componenti"/>
+						<figcaption>
+							<p> figura 6 - Form proprieta' Updatable graph connesso </p>
+						</figcaption>
+					</figure>
+				</div>
+				<div>
+					<figure>
+						<img src="GuidaD'uso/Img/FormConstrConnesso.gif" title="Connettere Componenti"/>
+						<figcaption>
+							<p> figura 7 - Form proprieta' Construct graph connesso </p>
+						</figcaption>
+					</figure>
+				</div>
+				Nella tabella degli input si hanno due colonne, la prima contiene i nomi degli elementi connessi in entrata, la seconda contiene il tipo d'input.</br>
+				Di default ogni input e' di tipo <i>From/From Named</i> ma e' possibile modificarlo grazie alla select. Le altre due possibilita' sono <i>From</i> e <i>From Named</i>.
+			</p>
+			<h3 id="types">Types of Components</h3>
+			<p>
+				World pipes e'finalizzato alla creazione di applicazioni e moduli che possono essere condivisi e riutilizzati.
+				<div id="input">
+					<h4>a. Input graph</h4>
+					<div id="picture">
+						<figure>
+							<img id="graph" src="GuidaD'uso/Img/input.png" title="Connettere Componenti"/>
+							<figcaption>
+								<p id="didascalia"> figura 8 - Input graph </p>
+							</figcaption>
+						</figure>
+					</div>
+					Ogni pipeline per dare un risultato ha bisogno di uno o piu' input. Tale componente ha solamente una porta di uscita.
+					Puo' essere collegato con qualsiasi componente che possieda porte in entrata. Per funzionare correttamente occorre impostargli un ID e un Nome (essi non necessariamente devono differire) e un URI.</br></br>
+					Si ha inoltre un input graph di default gia' presente nell'editor che non possiede URI e non puo' essere eliminato.
+					<div id="picture">
+						<figure>
+							<img id="graph" src="GuidaD'uso/Img/inputDefault.png" title="Connettere Componenti"/>
+							<figcaption>
+								<p id="didascalia"> figura 9 - Input graph default </p>
+							</figcaption>
+						</figure>
+					</div>
+				</div>
+				<div id="output">
+					<h4>b. Output graph</h4>
+					<div id="picture">
+						<figure>
+							<img id="graph" src="GuidaD'uso/Img/output.png" title="Connettere Componenti"/>
+							<figcaption>
+								<p id="didascalia"> figura 10 - Output graph </p>
+							</figcaption>
+						</figure>
+					</div>
+					Una pipeline non puo' produrre risultati senza questo componente. Ha un'unica porta di entrata e puo' essere collegato con qualsiasi componente. 
+					I parametri da impostare sono l'URI e il nome.</br></br>
+					Si ha inoltre un output graph di default gia' presente nell'editor che non possiede URI e non puo' essere eliminato.
+					<div id="picture">
+						<figure>
+							<img id="graph" src="GuidaD'uso/Img/outputdefault.png" title="Connettere Componenti"/>
+							<figcaption>
+								<p id="didascalia"> figura 11 - Output graph default </p>
+							</figcaption>
+						</figure>
+					</div>
+				</div>
+				<div id="datasource">
+					<h4>c. Datasource graph</h4>
+					<div id="picture">
+						<figure>
+							<img id="graph" src="GuidaD'uso/Img/dataset.png" title="Connettere Componenti"/>
+							<figcaption>
+								<p id="didascalia"> figura 12 - Dataset graph </p>
+							</figcaption>
+						</figure>
+					</div>
+					Questo componente rappresenta un file RDF. Come per l'Input graph si ha una sola porta di uscita. 
+					E' possibile creare un nuovo dataset inserendo l'URL del file RDF corrispondente nel form delle proprieta', 
+					oppure utilizzare uno dei Dataset graph presenti di default.
+				</div>
+				<div id="union">
+					<h4>d. Union graph</h4>
+					<div id="picture">
+						<figure>
+							<img id="graph" src="GuidaD'uso/Img/union.png" title="Connettere Componenti"/>
+							<figcaption>
+								<p id="didascalia"> figura 13 - Union graph </p>
+							</figcaption>
+						</figure>
+					</div>
+					E' utilizzato per unire triple RDF provenienti da piu' grafi RDF in input. Si hanno un'unica porta di output 
+					e una serie di porte d'input, di default sono sei ma si possono aumentare con il pulsante add (di cui alla sez. uno). 
+					Le proprieta' da impostare sono l'URI e il nome. Alle porte di entrata e' possibile connettere un input graph, construct graph,
+					updatable graph ed anche un altro union graph.
+				</div>
+				<div id="construct">
+					<h4>e. Construct graph</h4>
+					<div id="picture">
+						<figure>
+							<img id="graph" src="GuidaD'uso/Img/construct.png" title="Connettere Componenti"/>
+							<figcaption>
+								<p id="didascalia"> figura 14 - Construct graph </p>
+							</figcaption>
+						</figure>
+					</div>
+					E' utilizzato per creare triple con query SPARQL-CONSTRUCT su determinate fonti di RDF.
+					L'uscita di quest'operatore e' il risultato di una query SPARQL-CONSTRUCT eseguita su uno o piu' grafi RDF in input. 
+					La query e' eseguita considerando tutti i grafi in input associati ai nomi che hanno nel dataflow e un grafo di default 
+					definito dall'unione di tutti i grafi in input. Come per il componente union si ha un'unica porta di uscita e sei porte di entrata 
+					che possono essere aumentate con il pulsante add. Nel form delle proprieta' e' possibile impostare l'ID, l'URI, il nome e scrivere 
+					la query da eseguire. Quando al componente sono connessi uno o piu' moduli, nel form compare la tabella degli input costituita da 
+					due colonne <i>Name</i> e <i>Type</i>. Nella prima compaiono i nomi dei componenti connessi in entrata, nella seconda il tipo d'input che puo' 
+					essere <i>From</i>, <i>From Named</i> o entrambe <i>From/From Named</i>.
+				</div>
+				<div id="updatable">
+					<h4>f. Updatable graph</h4>
+					<div id="picture">
+						<figure>
+							<img id="graph" src="GuidaD'uso/Img/updatable.png" title="Connettere Componenti"/>
+							<figcaption>
+								<p id="didascalia"> figura 15 - Updatable graph </p>
+							</figcaption>
+						</figure>
+					</div>
+					E' un operatore speciale che definisce una porzione dello stato dell'applicazione.
+					Quest'operatore definisce un grafo RDF nel seguente modo: quando uno qualunque dei grafi in input si modifica viene eseguita 
+					l'operazione di update definita nel campo query, che puo' essere costituita anche da piu' query di update (separate da ";"). 
+					Il componente possiede un'unica porta di uscita e sei porte di entrata che possono essere aumentate con il pulsante add. 
+					Ognuna di queste porte d'input rappresenta un trigger. Nel form delle proprieta' e' possibile impostare l'ID, l'URI e il nome.
+					Quando al componente sono connessi uno o piu' moduli, nel form compare la tabella degli input costituita da due colonne <i>Name</i> e <i>Type</i>. 
+					Nella prima compaiono i nomi dei componenti connessi in entrata, nella seconda il tipo d'input che puo' essere <i>From</i>, <i>From Named</i> o
+					entrambe <i>From/From Named</i>.
+				</div>
+			</p>
+		</div>
+	</body>
+</html>

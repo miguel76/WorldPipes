@@ -1,64 +1,80 @@
-function cbMap(mapFunctSeq,functSeq,callbackSeq) {
-	while(funct in functSeq) {
-		funct(function(x) { callbackSeq(mapFunctSeq(x)); } );
-	}
+function cbMap(mapFunct,functSeq) {
+//	while(funct in functSeq) {
+//		funct(function(x) { callbackSeq(mapFunctSeq(x)); } );
+//	}
+	return function(callbackSeq) {
+		map(
+				function(funct) {
+					funct(function(x) { callbackSeq(mapFunct(x)); } );
+				},
+				functSeq );
+	};
 };
 
-function cbCollector(reduceFunctSeq,init,functSeq,callback) {
-	this.reduceFunctSeq = reduceFunctSeq;
+function _cbCollector(reduceFunct,init,functSeq,callback) {
+	this.reduceFunct = reduceFunct;
 	this.currValue = init;
 	this.queueLength = functSeq.length;
 	this.callback = callback;
 };
-cbCollector.prototype = {
-		constructor: cbCollector,
-		currValue: init,
+_cbCollector.prototype = {
+		constructor: _cbCollector,
 		update: function(newValue) {
-			this.currValue = reduceFunctSeq(this.currValue, newValue);
+			this.currValue = this.reduceFunct(this.currValue, newValue);
 			if (--this.queueLength == 0)
 				this.callback(this.currValue);
 		}
 };
 
-function cbReduceAnyOrder(reduceFunctSeq,init,functSeq,callback) {
-	
-	var collector = new cbCollector(reduceFunctSeq,init,functSeq,callback);
+function cbReduceAnyOrder(reduceFunct,init,functSeq) {
+	return function(callback) {
+		var collector = new _cbCollector(reduceFunct,init,functSeq,callback);
+		map(
+				function(funct) {
+					funct(function(x) { collector.update(x); } );
+				},
+				functSeq );
+	};
+};
+
+function _cbOrderedCollector(reduceFunct,init,functSeq,callback) {
+	this.reduceFunct = reduceFunct;
+//	this.currValue = init;
+	this.queueLength = functSeq.length;
+	this.results = [];
+	this.funcToPositions = {};
+	var currPos = 0;
 	while(funct in functSeq) {
-		funct(function(x) { collector.update(x); } );
+		if (this.funcToPositions[funct])
+			this.funcToPositions[funct].push(currPos);
+		else
+			this.funcToPositions[funct] = [ currPos ];
+		currPos++;
 	}
-	
+	this.callback = callback;
 };
-
-function wpReduce(reduceFunctSeq,init,functSeq,callbackSeq) {
-	
-};
-
-wpMap.prototype =
-	wpContainer.prototype || wpItem.prototype || {
-		constructor: wpComponent,
-		getX: function() { return this.x; },
-		setX: function(x) { this.x = x; },
-		getY: function() { return this.y; },
-		setY: function(y) { this.y = y; },
-		createNewGate: function() {
-			var newGate = new wpComponentGate(this);
-//			newComponent.setX(x);
-//			newComponent.setY(y);
-			this._addItem(newGate);
-			return newGate;
-		},
-//		getInputGates: function() { return []; },
-//		getOutputGates: function() { return []; },
-		_loadDefault: function() {
-			this.id = this.pipeline.getNewId();
-			this.name = this.pipeline.getNewName();
-		},
-		_readFromRDF: function() {
-			
-		},
-		_writeToRDF: function() {
-			
+_cbOrderedCollector.prototype = {
+		constructor: _cbOrderedCollector,
+		update: function(funct,newValue) {
+			map(
+					function(pos) {
+						this.results[pos] = newValue;
+						this.queueLength--;
+					},
+					this.funcToPositions[funct] );
+			if (this.queueLength == 0)
+				this.callback(
+						reduce(	this.reduceFunct, this.results )
+				);
 		}
 };
 
+function cbReduce(reduceFunct,init,functSeq) {
+	return function(callback) {
+		var collector = new _cbOrderedCollector(reduceFunct,init,functSeq,callback);
+		while(funct in functSeq) {
+			funct(function(x) { collector.update(x); } );
+		};
+	};
+};
 
