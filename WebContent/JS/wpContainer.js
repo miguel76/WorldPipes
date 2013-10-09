@@ -92,16 +92,23 @@ wpContainer.prototype = {
 			this.idsByItem = {};
 		},
 		
-		_itemType: "wp:Item",
-		_itemClass: wpItem,
+		_itemClassesByType: { "wp:Item": wpItem },
 		
 		_loadItems: function() {
-			map(
-					function(id) { this._loadItem(id); },
-					graph.filter(store.rdf.filters.type(store.rdf.resolve(_itemType))));
+			map( this._loadItemsOfType, this._itemClassesByType.keys() );
 		},
-		_loadItem: function(id) {
-			new _itemClass(this,id);
+		_loadItemsOfType: function(type) {
+			var itemTypeNode = store.rdf.resolve(type);
+			map(
+					function(triple) { this._loadItem(triple.subject,type); },
+					graph
+							.filter(
+									store.rdf.filters.type(itemTypeNode) )
+							.toArray() );
+		},
+		_loadItem: function(id,type) {
+			var itemClass = this._itemClassesByType[type];
+			new itemClass(this,id);
 		},
 		
 		sendDataToServer: function() {
