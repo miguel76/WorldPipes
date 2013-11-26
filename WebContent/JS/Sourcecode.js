@@ -24,8 +24,9 @@ codedataset.setAttribute("id","codedataset");
 var codepipe = document.createElement("p");
 codepipe.setAttribute("id","codepipe");
 
-var URIGraphStore = "http://localhost/ds/data?graph=";
-var URIUpdate = "http://localhost/ds/update";
+var dsURI = "http://localhost:8080/WorldPipes/ds";
+var URIGraphStore = dsURI + "/data?graph=";
+var URIUpdate = dsURI + "/update";
 var GraphURIPrefix = "http://www.swows.org/Default/";
 var dataflowURI = GraphURIPrefix + "dataflow";
 var pipelineURI = GraphURIPrefix + "pipeline";

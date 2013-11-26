@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+    <display-name>Application Name </display-name>
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+     <!-- 
+    <servlet>
+    	<servlet-name>store</servlet-name>
+    	<servlet-class>org.mitre.dsmiley.httpproxy.ProxyServlet</servlet-class>
+    	<init-param>
+      		<param-name>targetUri</param-name>
+      		<param-value>http://localhost:3030/ds/data</param-value>
+    	</init-param>
+    	<init-param>
+      		<param-name>log</param-name>
+      		<param-value>true</param-value>
+    	</init-param>
+	</servlet>
+    <servlet>
+    	<servlet-name>update</servlet-name>
+    	<servlet-class>org.mitre.dsmiley.httpproxy.ProxyServlet</servlet-class>
+    	<init-param>
+      		<param-name>targetUri</param-name>
+      		<param-value>http://localhost:3030/ds/update</param-value>
+    	</init-param>
+    	<init-param>
+      		<param-name>log</param-name>
+      		<param-value>true</param-value>
+    	</init-param>
+	</servlet>
+ 	 -->
+    <servlet>
+    	<servlet-name>ds</servlet-name>
+    	<servlet-class>org.mitre.dsmiley.httpproxy.ProxyServlet</servlet-class>
+    	<init-param>
+      		<param-name>targetUri</param-name>
+      		<param-value>http://localhost:3030/ds</param-value>
+    	</init-param>
+    	<init-param>
+      		<param-name>log</param-name>
+      		<param-value>true</param-value>
+    	</init-param>
+    	<init-param>
+      		<param-name>readonly</param-name>
+      		<param-value>false</param-value>
+    	</init-param>
+	</servlet>
+	<servlet-mapping>
+  		<servlet-name>ds</servlet-name>
+  		<url-pattern>/ds/*</url-pattern>
+	</servlet-mapping>
+</web-app>
