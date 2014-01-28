@@ -370,16 +370,23 @@ Code.cercaTarget = function(source){
 };
 
 /*Invia il codice RDF al server*/
-Code.estraiTesto = function(code,name){
+Code.estraiTesto = function(code,name,graphURIPrefix){
 	
+	var dataflowURI = graphURIPrefix + "dataflow";
+	var pipelineURI = graphURIPrefix + "pipeline";
+	var layoutURI = graphURIPrefix + "pipeline/layout";
+
 	var textCode = code.textContent;
 	
-	Code.sendCodeDataflowURI(textCode,name);
+	Code.sendCodeDataflowURI(textCode,name,dataflowURI);
 
 	JsonToServer.savePipelineAndLayout(URIGraphStore,pipelineURI,layoutURI,componentVett);
 };
 
-Code.sendCodeDataflowURI = function(textCode,name){
+Code.sendCodeDataflowURI = function(textCode,name,graphURIPrefix){
+
+	var dataflowURI = graphURIPrefix + "dataflow";
+
 	try{var request = new XMLHttpRequest();}
 	catch(error){var request = null;}
 	
@@ -402,7 +409,10 @@ Code.sendCodeDataflowURI = function(textCode,name){
 };
 
 
-Code.sendCodeURIUpdate = function(){
+Code.sendCodeURIUpdate = function(dataflowURI,graphURIPrefix){
+
+	var pubDataflowURI = graphURIPrefix + "dataflow/public";
+
 	try{var request = new XMLHttpRequest();}
 	catch(error){var request = null;}
 	

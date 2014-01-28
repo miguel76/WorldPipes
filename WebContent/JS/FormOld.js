@@ -1,4 +1,4 @@
-/*In questo script si realizzano i form per permettere all'utente di inserire le proprietà di ogni componente.*/
+/*In questo script si realizzano i form per permettere all'utente di inserire le proprietï¿½ di ogni componente.*/
 var Form = {};
 
 /*Crea il form corrispondente al componente passato in input*/
@@ -7,9 +7,9 @@ Form.createForm = function(parent,cnt){
 	var connections = jsPlumb.getConnections(parent);
 	
 	form = document.createElement("form");
-	form.name = "Proprietà";
+	form.name = "Proprietï¿½";
 	form.setAttribute("method","POST");
-	form.setAttribute("action","WorldPipesNew.html");
+//	form.setAttribute("action","WorldPipesNew.html");
 			
 	var fieldset = document.createElement("fieldset");
 	fieldset.setAttribute("id","form");

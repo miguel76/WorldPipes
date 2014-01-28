@@ -4,7 +4,7 @@ Il drag dei componenti.
 Il drop dei componeti nell'area editor ossia la creazione del componente stesso.*/
 var actionListenerImg =
 {
-	init:function(){
+	init:function(graphURIPrefix){
 		cnt = 1;
 		dragDrop = false;
 		cntIn = 1; cntOut = 1; cntUnion = 1; cntConstr = 1; cntUpdat = 1; cntDataset = 1; cntPipes = 1;
@@ -94,14 +94,14 @@ var actionListenerImg =
 		}
 		if(pulsante.title == "Save"){
 			var sourcecode = Core.getElementsByClass("codeclass")[0];
-			Code.estraiTesto(sourcecode,pulsante.title);
+			Code.estraiTesto(sourcecode,pulsante.title,graphURIPrefix);
 		}
 		if(pulsante.title == "Properties"){
 			//var json = JSON.stringify(componentVett);
 		}
 		if(pulsante.title == "Play & Save"){
 			var sourcecode = Core.getElementsByClass("codeclass")[0];
-			Code.estraiTesto(sourcecode,pulsante.title);
+			Code.estraiTesto(sourcecode,pulsante.title,graphURIPrefix);
 			window.open("http://localhost:8080/swows-web/play?df=" + URIGraphStore + encodeURI(dataflowURI),"_blank");
 		}
 		
